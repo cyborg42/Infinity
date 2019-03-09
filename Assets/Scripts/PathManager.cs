@@ -47,17 +47,17 @@ public class PathManager : MonoBehaviour
         levelScript.direction[0, colums / 2, 0] = 1;
         levelScript.direction[0, colums / 2, 1] = 0;
         levelScript.direction[rows - 2, colums / 2, 0] = 1;
-        levelScript.direction[rows - 2, colums / 2, 0] = 0;
+        levelScript.direction[rows - 2, colums / 2, 1] = 0;
         distance[rows - 2, colums / 2] = 1;
         dfs();
-        //printPath();
+        printPath();
     }
     void dfs()
     {
         Queue q = new Queue();
         q.Enqueue(new position(rows - 2, colums / 2));
 
-        Debug.Log(levelScript.direction[rows - 2, colums / 2, 0]);
+     
         while (q.Count > 0)
         {
             position cur = q.Dequeue() as position;
@@ -75,7 +75,6 @@ public class PathManager : MonoBehaviour
                 q.Enqueue(new position(cur.x + dx, cur.y + dy));
             }
         }
-        Debug.Log(levelScript.direction[rows - 2, colums / 2, 0]);
     }
     public bool isLegal()
     {
