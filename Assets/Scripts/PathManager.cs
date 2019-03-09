@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
-    private LevelManager levelScript;
     private int[,] distance;
     private int rows, colums;
     private const int inf = 0x3f3f3f3f;
@@ -21,7 +20,9 @@ public class PathManager : MonoBehaviour
             this.y = secound;
         }
     }
-    private void Awake()
+
+    private LevelManager levelScript;
+    void Awake()
     {
         levelScript = GetComponent<LevelManager>();
         rows = levelScript.rows;
@@ -35,16 +36,28 @@ public class PathManager : MonoBehaviour
             for (int y = 0; y < colums; y++)
             {
                 distance[x, y] = inf;
+                levelScript.direction[x, y, 0] = 0;
+                levelScript.direction[x, y, 1] = 0;
             }
         }
-        distance[rows - 1, colums / 2] = 0;
+        if (levelScript.land[rows - 2, colums / 2] < 0)
+        {
+            return;
+        }
+        levelScript.direction[0, colums / 2, 0] = 1;
+        levelScript.direction[0, colums / 2, 1] = 0;
+        levelScript.direction[rows - 2, colums / 2, 0] = 1;
+        levelScript.direction[rows - 2, colums / 2, 0] = 0;
+        distance[rows - 2, colums / 2] = 1;
         dfs();
+        //printPath();
     }
     void dfs()
     {
         Queue q = new Queue();
-        q.Enqueue(new position(rows - 1, colums / 2));
+        q.Enqueue(new position(rows - 2, colums / 2));
 
+        Debug.Log(levelScript.direction[rows - 2, colums / 2, 0]);
         while (q.Count > 0)
         {
             position cur = q.Dequeue() as position;
@@ -56,9 +69,13 @@ public class PathManager : MonoBehaviour
                 if (levelScript.land[cur.x + dx, cur.y + dy] < 0 || distance[cur.x + dx, cur.y + dy] < inf) continue;
                 if (i >= 4 && (levelScript.land[cur.x + dx, cur.y] < 0 || levelScript.land[cur.x, cur.y + dy] < 0)) continue;
                 distance[cur.x + dx, cur.y + dy] = distance[cur.x, cur.y] + 1;
+                levelScript.direction[cur.x + dx, cur.y + dy, 0] = -dx;
+                levelScript.direction[cur.x + dx, cur.y + dy, 1] = -dy;
+                if(cur.x+dx == rows - 2 && cur.y + dy == colums / 2) { Debug.Log("aaaaa"); }
                 q.Enqueue(new position(cur.x + dx, cur.y + dy));
             }
         }
+        Debug.Log(levelScript.direction[rows - 2, colums / 2, 0]);
     }
     public bool isLegal()
     {
@@ -74,5 +91,29 @@ public class PathManager : MonoBehaviour
             }
         }
         return legal;
+    }
+    void printPath()
+    {
+
+        string tmp="";
+        for (int x = 0; x < rows; x++)
+        {
+            for (int y = 0; y < colums; y++)
+            {
+                tmp = tmp + levelScript.direction[x, y, 0] + " " + levelScript.direction[x, y, 1] + "   ";
+            }
+            tmp = tmp + "\n";
+        }
+        Debug.Log(tmp);
+        tmp = "";
+        for (int x = 0; x < rows; x++)
+        {
+            for (int y = 0; y < colums; y++)
+            {
+                tmp = tmp + distance[x, y] + " "; 
+            }
+            tmp = tmp + "\n";
+        }
+        Debug.Log(tmp);
     }
 }

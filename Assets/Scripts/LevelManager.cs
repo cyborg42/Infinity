@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour {
+public class LevelManager : MonoBehaviour
+{
     // Start is called before the first frame update
     public int columns = 21;
     public int rows = 31;
@@ -17,8 +18,9 @@ public class LevelManager : MonoBehaviour {
     [HideInInspector]
     public int[,,] direction;
     private Transform boardHolder;
+
     private PathManager pathScript;
-    private void Awake()
+    void Awake()
     {
         pathScript = GetComponent<PathManager>();
     }

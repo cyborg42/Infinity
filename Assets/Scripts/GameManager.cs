@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         levelScript = GetComponent<LevelManager>();
+    }
+    void Start()
+    {
         InitGame();
     }
     void InitGame()
