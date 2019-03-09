@@ -13,29 +13,44 @@ public class LevelManager : MonoBehaviour {
     public GameObject enter;
     public GameObject exit;
     [HideInInspector]
-    public int[, ] land;
-
+    public int[,] land;
+    [HideInInspector]
+    public int[,,] direction;
     private Transform boardHolder;
-    void levelInit () {
+    private PathManager pathScript;
+    private void Awake()
+    {
+        pathScript = GetComponent<PathManager>();
+    }
+    void levelInit()
+    {
         boardHolder = new GameObject ("Board").transform;
         land = new int[rows, columns];
-        for (int x = 0; x < rows; x++) {
-            for (int y = 0; y < columns; y++) {
+        direction = new int[rows, columns, 2];
+        for (int x = 0; x < rows; x++)
+        {
+            for (int y = 0; y < columns; y++)
+            {
                 land[x, y] = -1;
             }
         }
-        for (int x = 1; x < rows - 1; x++) {
-            for (int y = 1; y < columns - 1; y++) {
+        for (int x = 1; x < rows - 1; x++)
+        {
+            for (int y = 1; y < columns - 1; y++)
+            {
                 land[x, y] = 0;
             }
         }
         land[0, columns / 2] = 1;
         land[rows - 1, columns / 2] = -2;
 
-        for (int x = 0; x < rows; x++) {
-            for (int y = 0; y < columns; y++) {
+        for (int x = 0; x < rows; x++)
+        {
+            for (int y = 0; y < columns; y++)
+            {
                 GameObject toInstantiate;
-                switch (land[x, y]) {
+                switch (land[x, y])
+                {
                     case -1:
                         toInstantiate = wall;
                         break;
@@ -53,15 +68,18 @@ public class LevelManager : MonoBehaviour {
                         break;
                 }
                 GameObject instance =
-                    Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
-                instance.transform.SetParent (boardHolder);
+                    Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                instance.transform.SetParent(boardHolder);
             }
         }
+        land[0, columns / 2] = -1;
+        land[1, columns / 2] = 1;
+        land[rows - 1, columns / 2] = -1;
+        pathScript.FindPath();
     }
-    public void SetupScene (int level) {
-
-        levelInit ();
-
+    public void SetupScene(int level)
+    {
+        levelInit();
     }
 
 }

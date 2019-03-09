@@ -123,6 +123,8 @@ GameObject:
   - component: {fileID: 1202550667}
   - component: {fileID: 1202550666}
   - component: {fileID: 1202550665}
+  - component: {fileID: 1202550669}
+  - component: {fileID: 1202550668}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -164,7 +166,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -188,9 +190,49 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202550664}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 15, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202550668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202550664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d11d048e505938428d6ff67096384c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelScript: {fileID: 0}
+--- !u!114 &1202550669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202550664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca9893e35e95a645a46c817f95205c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 21
+  rows: 31
+  floors:
+  - {fileID: 8347572429584670467, guid: d762b58fc9cbe7149a1c205bb60f4f4d, type: 3}
+  - {fileID: 4052996737129517391, guid: dfc4b3d8047998e499a56d267cca91c6, type: 3}
+  enemys:
+  - {fileID: 4245729003026674332, guid: 2aa9bc3971a93ef428e764c7c8a8ceba, type: 3}
+  - {fileID: 461209353799871282, guid: f01412500e994c2429063cd103f556ce, type: 3}
+  towers:
+  - {fileID: 8929282363913763546, guid: 57c6f7838870a444bbe84949d9be0fbc, type: 3}
+  - {fileID: 3505961389174284145, guid: a28ad73d1344dfc4992d4619a37c08d0, type: 3}
+  - {fileID: 6250796308716888986, guid: 285da25fe6c47ec4ebfec5e15d58da3f, type: 3}
+  wall: {fileID: 2876938319084094526, guid: 7e43f88b14bdf624fafc44036224cd08, type: 3}
+  enter: {fileID: 2876938319084094526, guid: 8b8dbfd733f366443b6407cebded5704, type: 3}
+  exit: {fileID: 2876938319084094526, guid: 40c857c61b5023441aee3e54faabf9af, type: 3}
