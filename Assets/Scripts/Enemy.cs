@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour
 {
     public float speed = 1;
     public float blood = 100;
-    public float randomRange = (float)0.5;
     private LevelManager levelScript;
     private bool lck;
     private int x, y;
@@ -46,7 +45,7 @@ public class Enemy : MonoBehaviour
             {
                 Vector3 dir = new Vector3(x - transform.position.x, y - transform.position.y, 0);
                 transform.Translate(dir.normalized * speed * Time.fixedDeltaTime);
-                if (dir.magnitude < 0.1)
+                if (dir.magnitude < 0.05)
                 {
                     transform.position = new Vector3(x, y, 0);    
                     lck = true;

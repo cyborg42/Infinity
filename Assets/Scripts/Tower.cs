@@ -7,16 +7,19 @@ public class Tower : MonoBehaviour
     public float range = (float)5;
     private List<GameObject> enemys = new List<GameObject>();
 
+    private void Start()
+    {
+        GetComponent<CircleCollider2D>().radius = range;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         enemys.Add(collision.gameObject);
-        Debug.Log("enter");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         enemys.Remove(collision.gameObject);
-        Debug.Log("exit");
     }
 
     void Update()
@@ -33,6 +36,10 @@ public class Tower : MonoBehaviour
         {
             return;
         }
-        Debug.Log(enemys[0].name);
+        GameObject enemy = enemys[0];
+      
+        float angle = Vector3.Angle(Vector3.up, enemy.transform.position - transform.position);
+        if (enemy.transform.position.x > transform.position.x) angle = -angle;
+        transform.rotation = Quaternion.Euler(Vector3.forward * angle);
     }
 }

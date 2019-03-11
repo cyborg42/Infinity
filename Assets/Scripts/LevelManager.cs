@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     public int columns = 21;
     public int rows = 31;
+    public int healthPoint = 100;
     public GameObject[] floors;
     public GameObject[] enemys;
     public GameObject[] towers;
