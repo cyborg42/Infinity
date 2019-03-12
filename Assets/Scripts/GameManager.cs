@@ -27,5 +27,4 @@ public class GameManager : MonoBehaviour
     {
         levelScript.SetupScene(0);
     }
- 
 }

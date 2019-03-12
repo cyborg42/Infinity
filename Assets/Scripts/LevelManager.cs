@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     public int[,] land;
     [HideInInspector]
     public int[,,] direction;
+    private GameObject[,] floorBlocks;
     private Transform boardHolder;
 
     private PathManager pathScript;
@@ -25,11 +26,13 @@ public class LevelManager : MonoBehaviour
     {
         pathScript = GetComponent<PathManager>();
     }
+    
     void levelInit()
     {
         boardHolder = new GameObject ("Board").transform;
         land = new int[rows, columns];
         direction = new int[rows, columns, 2];
+        floorBlocks = new GameObject[rows, columns];
         for (int x = 0; x < rows; x++)
         {
             for (int y = 0; y < columns; y++)
@@ -72,6 +75,7 @@ public class LevelManager : MonoBehaviour
                 }
                 GameObject instance =
                     Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                floorBlocks[x, y] = instance;
                 instance.transform.SetParent(boardHolder);
             }
         }
@@ -84,5 +88,20 @@ public class LevelManager : MonoBehaviour
     {
         levelInit();
     }
+    private void FixedUpdate()
+    {
+        
+        if(Input.GetMouseButtonUp(0))
+        {
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            int x = System.Convert.ToInt32(mouse.x);
+            int y = System.Convert.ToInt32(mouse.y);
+            if (x > 0 && x < rows - 1 && y > 0 && y < columns - 1)
+            {
+                floorBlocks[x, y].GetComponent<Floor>().MouseDown();
+            }
 
+        }
+        
+    }
 }

@@ -49,10 +49,10 @@ public class PathManager : MonoBehaviour
         levelScript.direction[rows - 2, colums / 2, 0] = 1;
         levelScript.direction[rows - 2, colums / 2, 1] = 0;
         distance[rows - 2, colums / 2] = 1;
-        dfs();
-        printPath();
+        Dfs();
+        //printPath();
     }
-    void dfs()
+    void Dfs()
     {
         Queue q = new Queue();
         q.Enqueue(new position(rows - 2, colums / 2));
@@ -76,7 +76,7 @@ public class PathManager : MonoBehaviour
             }
         }
     }
-    public bool isLegal()
+    public bool IsLegal()
     {
         bool legal = true;
         for (int x = 1; x < rows - 1; x++)

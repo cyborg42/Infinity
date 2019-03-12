@@ -31,10 +31,10 @@ public class Tower : MonoBehaviour
         while(!enemys[0])
         {
             enemys.RemoveAt(0);
-        }
-        if (enemys.Count == 0)
-        {
-            return;
+            if (enemys.Count == 0)
+            {
+                return;
+            }
         }
         GameObject enemy = enemys[0];
       
