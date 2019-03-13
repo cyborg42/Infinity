@@ -4,7 +4,7 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float range = (float)5;
+    public float range = 5f;
     private List<GameObject> enemys = new List<GameObject>();
 
     private void Start()

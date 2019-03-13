@@ -11,10 +11,10 @@ public class PathManager : MonoBehaviour
     {
         {0,1},{1,0},{0,-1},{-1,0},{1,1},{1,-1},{-1,1},{-1,-1}
     };
-    private class position
+    private class Position
     {
         public int x, y;
-        public position(int first, int secound)
+        public Position(int first, int secound)
         {
             this.x = first;
             this.y = secound;
@@ -49,18 +49,19 @@ public class PathManager : MonoBehaviour
         levelScript.direction[rows - 2, colums / 2, 0] = 1;
         levelScript.direction[rows - 2, colums / 2, 1] = 0;
         distance[rows - 2, colums / 2] = 1;
+        levelScript.land[0, colums / 2] = -1;
+        levelScript.land[rows - 1, colums / 2] = -1;
         Dfs();
-        //printPath();
     }
     void Dfs()
     {
         Queue q = new Queue();
-        q.Enqueue(new position(rows - 2, colums / 2));
+        q.Enqueue(new Position(rows - 2, colums / 2));
 
      
         while (q.Count > 0)
         {
-            position cur = q.Dequeue() as position;
+            Position cur = q.Dequeue() as Position;
             for (int i = 0; i < 8; i++)
             {
                 int dx = dirs[i, 0];
@@ -72,7 +73,7 @@ public class PathManager : MonoBehaviour
                 levelScript.direction[cur.x + dx, cur.y + dy, 0] = -dx;
                 levelScript.direction[cur.x + dx, cur.y + dy, 1] = -dy;
                 if(cur.x+dx == rows - 2 && cur.y + dy == colums / 2) { Debug.Log("aaaaa"); }
-                q.Enqueue(new position(cur.x + dx, cur.y + dy));
+                q.Enqueue(new Position(cur.x + dx, cur.y + dy));
             }
         }
     }
@@ -91,7 +92,8 @@ public class PathManager : MonoBehaviour
         }
         return legal;
     }
-    void printPath()
+
+    void PrintPath()
     {
 
         string tmp="";
@@ -109,7 +111,7 @@ public class PathManager : MonoBehaviour
         {
             for (int y = 0; y < colums; y++)
             {
-                tmp = tmp + distance[x, y] + " "; 
+                tmp = tmp + levelScript.land[x, y] + " "; 
             }
             tmp = tmp + "\n";
         }

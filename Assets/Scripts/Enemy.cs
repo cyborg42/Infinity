@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
     private int lastx, lasty;
     private int dirx, diry;
     private int lastdirx, lastdiry;
-    private float randomx, randomy;
     private void Awake()
     {
         levelScript = GameObject.Find("GameManager").GetComponent<LevelManager>();
@@ -54,6 +53,8 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            levelScript.land[lastx, lasty] -= 1;
+            levelScript.land[x, y] += 1;
             lck = false;
         }
         lastx = x;
