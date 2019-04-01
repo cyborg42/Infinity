@@ -8,4 +8,4 @@
 + 养成元素
 ## PICTURES
 
-![](./ReadmeResource/infinity.png)
+![](./ReadmeResource/infinity.PNG)
